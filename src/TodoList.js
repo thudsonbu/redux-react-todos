@@ -69,5 +69,17 @@ function mapStateToProps(reduxState){
     }
 }
 
+//
+function mapDispatchToProps(dispatch) {
+    return {
+        addTodo: function(task) {
+            dispatch({
+                type: "ADD_TODO",
+                task
+            });
+        }
+    }
+}
+
 // when connect is used this component can now dispatch actions
-export default connect(mapStateToProps)(TodoList)
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
