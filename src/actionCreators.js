@@ -14,6 +14,6 @@ export function addTodo(todo) {
 export function removeTodo(todo_id) {
     return {
         type: REMOVE_TODO,
-        todo_id
+        id: todo_id
     }
 }
