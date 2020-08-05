@@ -5,7 +5,6 @@ const initialState = {
     id: 0 // naive to use this form of id
 }
 
-
 export default function rootReducer(state = initialState, action) {
     // use a switch statement to choose between actions
     switch(action.type) {
@@ -14,7 +13,7 @@ export default function rootReducer(state = initialState, action) {
             newState.id++
             return {
                 ...newState,
-                todos: [ ...newState.todos, { task: action.task, id: newState.id }]
+                todos: [ ...newState.todos, { todo: action.todo, id: newState.id }]
             }
         case REMOVE_TODO:
             var newState = {...state};
