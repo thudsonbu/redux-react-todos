@@ -16,10 +16,10 @@ export default function rootReducer(state = initialState, action) {
                 todos: [ ...newState.todos, { todo: action.todo, id: newState.id }]
             }
         case REMOVE_TODO:
-            var newState = {...state};
+            var newState2 = {...state};
             let newTodos = state.todos.filter(todo => todo.id !== action.id);
             return {
-                ...newState,
+                ...newState2,
                 todos: newTodos
             }
         default:

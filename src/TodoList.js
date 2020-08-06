@@ -1,34 +1,20 @@
 import React, { Component } from 'react'
 import Todo from './Todo'
 import { connect } from 'react-redux'
-import { addTodo, removeTodo } from './actionCreators'
+import { removeTodo, addTodo } from './actionCreators'
+import { Route } from 'react-router-dom';
+import NewTodoForm from './NewTodoForm';
 
 class TodoList extends Component {
     constructor(props){
         super(props)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
         this.removeTodo = this.removeTodo.bind(this)
-        this.state = {
-            todo: ""
-        }
+        this.handleAdd = this.handleAdd.bind(this)
     }
-    handleSubmit(e){
-        // stop reload
-        e.preventDefault()
-        // dispatch an action to change redux state
-        this.props.addTodo(this.state.todo)
-        // clear form after submit
-        e.target.reset()
-    }
-    handleChange(e){
-        // set state to whatever is in form
-        this.setState({
-            [e.target.name]: [e.target.value]
-        })
+    handleAdd(val){
+        this.props.addTodo(val)
     }
     removeTodo(id){ // id from bind in todo props
-        console.log(id);
         this.props.removeTodo(id)
     }
     render(){
@@ -44,16 +30,18 @@ class TodoList extends Component {
         )
 
         return(
-            <div className="Todos">
-                <form onSubmit = {this.handleSubmit}>
-                    <label htmlFor="todo"> todo </label>
-                    <input type="text" name="todo" id="todo" onChange={this.handleChange}/>
-                    <button>Button</button>
-                </form>
-                <ul>
-                    {todos}
-                </ul>
-            </div>
+            <div>
+                <Route path="/todos/new" component={props => (
+                    <NewTodoForm {...props} handleAdd={this.handleAdd}/>
+                )}/>
+                <Route exact path="/todos" component={() => (
+                    <div className="Todos">
+                        <ul>
+                            {todos}
+                        </ul>
+                    </div>
+                )} />
+            </div> 
         )
     }
 }
@@ -81,4 +69,4 @@ function mapStateToProps(reduxState){
 // the object containing addTodo and removeTodo passes functions from the
 // imported action creators file thus passing them as props to the component.
 // As apposed to passing dispatch which contains all action creators.
-export default connect(mapStateToProps, { addTodo, removeTodo })(TodoList)
+export default connect(mapStateToProps, { removeTodo, addTodo })(TodoList)

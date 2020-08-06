@@ -3,6 +3,7 @@ export const ADD_TODO = "ADD_TODO"
 export const REMOVE_TODO = "REMOVE_TODO"
 
 // action creators are functions that return objects used by the reducer
+// these are often imported in compenents
 
 export function addTodo(todo) {
     return {
